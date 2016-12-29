@@ -231,7 +231,8 @@ describe('Tags - events', () => {
 			input.value = '';
 
 			Simulate.change(input);
-			Simulate.keyDown(input, {key: 'Delete', keyCode: 8, which: 8});
+			const removeIcon = tagContainer.children[1].getElementsByTagName('a')[0];
+			Simulate.click(removeIcon);
 		});
 
 		it('should call the "onRemoved" event and return the tag that was removed', () => {
@@ -290,14 +291,14 @@ describe('Tags - removing', () => {
 	});
 
 	describe('when the input field is empty and backspace is pressed', () => {
-		it('should remove a single tag', () => {
+		it('should not remove a single tag', () => {
 			input.value = '';
 
 			Simulate.change(input);
 			Simulate.keyDown(input, {key: 'Delete', keyCode: 8, which: 8});
 
-			expect(tagContainer.children.length).toBe(1);
-			expect(tagContainer.children[0].textContent).toContain(TEST_TAGS[0]);
+			expect(tagContainer.children.length).toBe(2);
+			expect(tagContainer.children[1].textContent).toContain(TEST_TAGS[1]);
 		});
 	});
 
