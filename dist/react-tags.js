@@ -160,28 +160,14 @@ return /******/ (function(modules) { // webpackBootstrap
 		}, {
 			key: 'onInputKey',
 			value: function onInputKey(e) {
-				switch (e.keyCode) {
-					case Tags.KEYS.backspace:
-						if (this.state.tags.length === 0) return;
+				if (this.input.value === '') return;
 	
-						if (this.input.value === '') {
-							this.removeTag(this.state.tags.length - 1);
-						}
+				if (this.props.addKeys.indexOf(e.keyCode) !== -1) {
+					if (Tags.KEYS.enter !== e.keyCode) {
+						e.preventDefault();
+					}
 	
-						break;
-	
-					default:
-						if (this.input.value === '') return;
-	
-						if (this.props.addKeys.indexOf(e.keyCode) !== -1) {
-							if (Tags.KEYS.enter !== e.keyCode) {
-								e.preventDefault();
-							}
-	
-							this.addTag();
-						}
-	
-						break;
+					this.addTag();
 				}
 			}
 		}, {
